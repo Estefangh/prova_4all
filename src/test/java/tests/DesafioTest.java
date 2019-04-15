@@ -1,6 +1,9 @@
 package tests;
 
 import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,11 +13,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
 public class DesafioTest {
-    @Test
-    public void testDesafioUm(){
+    public WebDriver navegador;
+
+    @Before
+    public void setUp(){
         // Abrindo o browser
         System.setProperty("webdriver.chrome.driver","C:\\Users\\tefag\\Drivers\\chromedriver.exe");
-        WebDriver navegador = new ChromeDriver();
+        navegador = new ChromeDriver();
         navegador.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
 
         // abrindo full screen
@@ -22,7 +27,11 @@ public class DesafioTest {
 
         // Navegando até a página do desafio
         navegador.get("https://shopcart-challenge.4all.com/");
+    }
 
+
+    @Test
+    public void testDesafioUm(){
         // Clicar no "Selecione a Categoria"
         navegador.findElement(By.id("open-categories-btn")).click();
 
@@ -59,24 +68,10 @@ public class DesafioTest {
 
         //clicar no botão fechar
         navegador.findElement(By.className("close-modal")).click();
-
-        //fechando o browser
-        navegador.quit();
     }
 
     @Test
     public void testDesafioDois(){
-        // Abrindo o browser
-        System.setProperty("webdriver.chrome.driver","C:\\Users\\tefag\\Drivers\\chromedriver.exe");
-        WebDriver navegador = new ChromeDriver();
-        navegador.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
-
-        // abrindo full screen
-        navegador.manage().window().maximize();
-
-        // Navegando até a página do desafio
-        navegador.get("https://shopcart-challenge.4all.com/");
-
         // Clicar no "Selecione a Categoria"
         navegador.findElement(By.id("open-categories-btn")).click();
 
@@ -123,7 +118,7 @@ public class DesafioTest {
         //validar o valor total dos produtos
         WebElement preco = navegador.findElement(By.id("price-total-checkout"));
         String valorTotal = preco.getText();
-        assertEquals("R$ 58,00", valorTotal);
+        assertEquals("R$ 36,00", valorTotal);
 
         //clicar no botão "finalizar compra"
         navegador.findElement(By.id("finish-checkout-button")).click();
@@ -135,8 +130,12 @@ public class DesafioTest {
 
         //clicar no botão fechar
         navegador.findElement(By.className("close-modal")).click();
+    }
 
+    @After
+    public void tearDown(){
         //fechando o browser
         navegador.quit();
     }
+
 }
