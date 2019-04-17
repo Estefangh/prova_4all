@@ -4,16 +4,23 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import suporte.Generator;
+import suporte.Screenshot;
 
 import java.util.concurrent.TimeUnit;
 
 public class DesafioTest {
     public WebDriver navegador;
+
+    @Rule
+    public TestName test = new TestName();
 
     @Before
     public void setUp(){
@@ -57,6 +64,10 @@ public class DesafioTest {
         navegador.findElement(By.id("add-product-4-qtd")).click();
         navegador.findElement(By.id("add-product-4-qtd")).click();
         navegador.findElement(By.id("add-product-4-qtd")).click();
+
+        //tirar screenshot
+        String screenshotArquivo = "C:\\Users\\tefag\\Pictures\\Screenshots4all/" + Generator.dataHoraParaArquivo() + test.getMethodName() + ".png";
+        Screenshot.tirar(navegador, screenshotArquivo);
 
         //clicar em "finalizar compra"
         navegador.findElement(By.id("finish-checkout-button")).click();
